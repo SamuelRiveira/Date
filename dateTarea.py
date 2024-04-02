@@ -1,5 +1,4 @@
 from __future__ import annotations
-from typing import Union
 
 class Fecha:
     def __init__(self, dia: int, mes: int, año: int):
