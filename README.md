@@ -1,10 +1,10 @@
 ## Descripción del código
 
-Este código implementa una clase Fecha en Python para representar fechas con día, mes y año. La clase proporciona funcionalidades como la validación automática de fechas, cálculo de días transcurridos desde una fecha base, determinación del día de la semana, y verificación de si una fecha cae en fin de semana.
+Este código implementa una clase Fecha en Python para representar fechas con día, mes y año. La clase proporciona funcionalidades como la validación de fechas, cálculo de días transcurridos desde una fecha base, determinación del día de la semana, y verificación de si una fecha cae en fin de semana.
 
 ## Características principales
 
-Validación de la fecha: Al crear una instancia de la clase Fecha, se valida automáticamente si la fecha proporcionada es válida (entre el 1-1-1900 y el 31-12-2050). Si alguno de los componentes de la fecha (día, mes o año) no es válido, se ajusta automáticamente.
+Validación de la fecha: Al crear una instancia de la clase Fecha, se valida si la fecha proporcionada es válida (entre el 1-1-1900 y el 31-12-2050). Si alguno de los componentes de la fecha (día, mes o año) no es válido, se ajusta automáticamente.
 
 ## Métodos estáticos:
 
@@ -21,4 +21,3 @@ fecha_corta (propiedad): Devuelve la fecha en formato corto (DD/MM/YYYY).
 ## Sobrecarga de operadores:
 
 __add__(self, dias: int) -> Fecha: Permite sumar un número de días a la fecha actual.
-__sub__(self, other: Fecha | int) -> int | Fecha: Se ha proporcionado una estructura para la resta de fechas o la resta de días a la fecha, pero está pendiente de implementación.
