@@ -1,27 +1,27 @@
 from __future__ import annotations
 
 class Fecha:
-    def __init__(self, dia: int, mes: int, año: int):
-        '''Validar día, mes y año. Se comprobará si la fecha es correcta
+    def __init__(self, dia: int, mes: int, anio: int):
+        '''Validar día, mes y anio. Se comprobará si la fecha es correcta
         (entre el 1-1-1900 y el 31-12-2050); si el día no es correcto, lo pondrá a 1;
-        si el mes no es correcto, lo pondrá a 1; y si el año no es correcto, lo pondrá a 1900.
-        Ojo con los años bisiestos.
+        si el mes no es correcto, lo pondrá a 1; y si el anio no es correcto, lo pondrá a 1900.
+        Ojo con los anios bisiestos.
         El 1-1-1900 fue lunes.
         '''
 
-        if año < 1900:
-            self.año = 1900
-        elif año > 2050:
-            self.año = 1900
+        if anio < 1900:
+            self.anio = 1900
+        elif anio > 2050:
+            self.anio = 1900
         else:
-            self.año = año
+            self.anio = anio
         if mes < 1:
             self.mes = 1
         elif mes > 12:
             self.mes = 12
         else:
             self.mes = mes
-        max_dias = self.dias_en_mes(self.mes, self.año)
+        max_dias = self.dias_en_mes(self.mes, self.anio)
         if dia < 1:
             self.dia = 1
         elif dia > max_dias:
@@ -30,13 +30,13 @@ class Fecha:
             self.dia = dia
 
     @staticmethod
-    def es_año_bisiesto(año: int) -> bool:
-        return (año % 4 == 0 and año % 100 != 0) or (año % 400 == 0)
+    def es_anio_bisiesto(anio: int) -> bool:
+        return (anio % 4 == 0 and anio % 100 != 0) or (anio % 400 == 0)
 
     @staticmethod
-    def dias_en_mes(mes: int, año: int) -> int:
+    def dias_en_mes(mes: int, anio: int) -> int:
         if mes == 2:
-            if Fecha.es_año_bisiesto(año):
+            if Fecha.es_anio_bisiesto(anio):
                 return 29
             else:
                 return 28
@@ -49,9 +49,9 @@ class Fecha:
         '''Número de días transcurridos desde el 1-1-1900 hasta la fecha'''
         dias = self.dia - 1
         for x in range(1, self.mes):
-            dias += self.dias_en_mes(x, self.año)
-        for y in range(1900, self.año):
-            dias += 366 if self.es_año_bisiesto(y) else 365
+            dias += self.dias_en_mes(x, self.anio)
+        for y in range(1900, self.anio):
+            dias += 366 if self.es_anio_bisiesto(y) else 365
         return dias
 
     @property
@@ -80,7 +80,7 @@ class Fecha:
         else:
             mes_str = "0" + str(self.mes)
         
-        return dia_str + "/" + mes_str + "/" + str(self.año)
+        return dia_str + "/" + mes_str + "/" + str(self.anio)
 
 
 
@@ -95,12 +95,12 @@ class Fecha:
             "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
         ]
         nombre_mes = nombres_meses[self.mes - 1]
-        return f"{dia_semana.upper()} {self.dia} DE {nombre_mes.upper()} DE {self.año}"
+        return f"{dia_semana.upper()} {self.dia} DE {nombre_mes.upper()} DE {self.anio}"
 
     def __add__(self, dias: int) -> Fecha:
         '''Sumar un número de días a la fecha'''
         delta = datetime.timedelta(days=dias)
-        nueva_fecha = datetime.date(self.año, self.mes, self.dia) + delta
+        nueva_fecha = datetime.date(self.anio, self.mes, self.dia) + delta
         return Fecha(nueva_fecha.day, nueva_fecha.month, nueva_fecha.year)
 
     def __sub__(self, other: Date | int) -> int | Date:
