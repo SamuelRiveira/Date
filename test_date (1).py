@@ -1,5 +1,5 @@
 import pytest
-from dateTarea import Date
+from Programación.Date.date import Date
 
 
 @pytest.fixture

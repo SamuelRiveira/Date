@@ -117,17 +117,3 @@ class Fecha:
 
     def __eq__(self, other) -> bool:
         ...
-
-
-
-
-if __name__ == "__main__":
-    f1 = Fecha(1, 1, 2000)
-    print(f1.dia_semana)
-    print(f1.es_fin_de_semana)
-    print(f1.fecha_corta)
-    print(f1)
-
-    f2 = Fecha(31, 12, 1999)
-    print(f1 > f2)
-    print(f1 - f2)
