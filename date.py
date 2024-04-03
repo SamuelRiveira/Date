@@ -100,27 +100,61 @@ class Fecha:
         nombre_mes = nombres_meses[self.mes - 1]
         return f"{dia_semana.upper()} {self.dia} DE {nombre_mes.upper()} DE {self.anio}"
 
-    def __add__(self, dias: int) -> Fecha:
+    def __add__(self, dias: int) -> 'Fecha':
         '''Sumar un número de días a la fecha'''
-        import datetime
-        delta = datetime.timedelta(days=dias)
-        nueva_fecha = datetime.date(self.anio, self.mes, self.dia) + delta
-        return Fecha(nueva_fecha.day, nueva_fecha.month, nueva_fecha.year)
+        dia = self.dia + dias
+        mes = self.mes
+        anio = self.anio
+        while dia > self.dias_en_mes(mes, anio):
+            dia -= self.dias_en_mes(mes, anio)
+            mes += 1
+            if mes > 12:
+                mes = 1
+                anio += 1
+        return Fecha(dia, mes, anio)
 
-    def __sub__(self, dias: int) -> Fecha:
-        '''Dos opciones:
-        1) Restar una fecha a otra fecha -> Número de días
-        2) Restar un número de días la fecha -> Nueva fecha'''
-        import datetime
-        delta = datetime.timedelta(days=dias)
-        nueva_fecha = datetime.date(self.anio, self.mes, self.dia) - delta
-        return Fecha(nueva_fecha.day, nueva_fecha.month, nueva_fecha.year)
+    def __sub__(self, other) -> Fecha:
+        '''Restar una fecha a otra fecha -> Número de días
+        Restar un número de días a la fecha -> Nueva fecha'''
+
+        if isinstance(other, Fecha):
+            return self.obtener_dias_transcurridos() - other.obtener_dias_transcurridos()
+
+        elif isinstance(other, int):
+            dia = self.dia - other
+            mes = self.mes
+            anio = self.anio
+            
+            while dia < 1:
+                mes -= 1
+                if mes < 1:
+                    mes = 12
+                    anio -= 1
+                dia += self.dias_en_mes(mes, anio)
+            
+            return Fecha(dia, mes, anio)
+        
 
     def __lt__(self, other) -> bool:
-        ...
+        if self.dia < other.dia:
+            return True
+        if self.mes < other.mes:
+            return True
+        if self.anio < other.anio:
+            return True
 
     def __gt__(self, other) -> bool:
-        ...
+        if self.dia > other.dia:
+            return True
+        if self.mes > other.mes:
+            return True
+        if self.anio > other.anio:
+            return True
 
     def __eq__(self, other) -> bool:
-        ...
+        if self.dia == other.dia:
+            return True
+        if self.mes == other.mes:
+            return True
+        if self.anio == other.anio:
+            return True
