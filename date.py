@@ -18,7 +18,7 @@ class Fecha:
         if mes < 1:
             self.mes = 1
         elif mes > 12:
-            self.mes = 12
+            self.mes = 1
         else:
             self.mes = mes
         max_dias = self.dias_en_mes(self.mes, self.anio)
@@ -51,7 +51,10 @@ class Fecha:
         for x in range(1, self.mes):
             dias += self.dias_en_mes(x, self.anio)
         for y in range(1900, self.anio):
-            dias += 366 if self.es_anio_bisiesto(y) else 365
+            if self.es_anio_bisiesto(y):
+                dias += 366
+            else:
+                dias += 365
         return dias
 
     @property
@@ -62,7 +65,7 @@ class Fecha:
     @property
     def es_fin_de_semana(self) -> bool:
         '''True si es fin de semana (sábado o domingo), False en caso contrario.'''
-        if self.dia_semana in {5, 6}:
+        if self.dia_semana in {6, 0}:
             return True
         else:
             return False
@@ -88,7 +91,7 @@ class Fecha:
     def __str__(self):
         '''MARTES 2 DE SEPTIEMBRE DE 2003'''
         import datetime
-        dias_semana = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
+        dias_semana = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"]
         dia_semana = dias_semana[self.dia_semana]
         nombres_meses = [
             "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
@@ -99,15 +102,19 @@ class Fecha:
 
     def __add__(self, dias: int) -> Fecha:
         '''Sumar un número de días a la fecha'''
+        import datetime
         delta = datetime.timedelta(days=dias)
         nueva_fecha = datetime.date(self.anio, self.mes, self.dia) + delta
         return Fecha(nueva_fecha.day, nueva_fecha.month, nueva_fecha.year)
 
-    def __sub__(self, other: Date | int) -> int | Date:
+    def __sub__(self, dias: int) -> Fecha:
         '''Dos opciones:
         1) Restar una fecha a otra fecha -> Número de días
         2) Restar un número de días la fecha -> Nueva fecha'''
-        ...
+        import datetime
+        delta = datetime.timedelta(days=dias)
+        nueva_fecha = datetime.date(self.anio, self.mes, self.dia) - delta
+        return Fecha(nueva_fecha.day, nueva_fecha.month, nueva_fecha.year)
 
     def __lt__(self, other) -> bool:
         ...
