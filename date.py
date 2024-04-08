@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 class Fecha:
     def __init__(self, dia: int, mes: int, anio: int):
         '''Validar día, mes y anio. Se comprobará si la fecha es correcta
