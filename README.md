@@ -8,8 +8,8 @@ Validación de la fecha: Al crear una instancia de la clase Fecha, se valida si 
 
 ## Métodos estáticos:
 
-es_año_bisiesto(año: int) -> bool: Determina si un año es bisiesto.
-dias_en_mes(mes: int, año: int) -> int: Devuelve el número de días en un mes específico de un año dado.
+es_anio_bisiesto(anio: int) -> bool: Determina si un año es bisiesto.
+dias_en_mes(mes: int, anio: int) -> int: Devuelve el número de días en un mes específico de un año dado.
 
 ## Métodos de instancia:
 
@@ -20,4 +20,6 @@ fecha_corta (propiedad): Devuelve la fecha en formato corto (DD/MM/YYYY).
 
 ## Sobrecarga de operadores:
 
-__add__(self, dias: int) -> Fecha: Permite sumar un número de días a la fecha actual.
+add(self, dias: int) -> Fecha: Permite sumar un número de días a la fecha actual.
+sub(self, other) -> Fecha: Restar una fecha a otra fecha o restar un número de días a la fecha para obtener una nueva fecha.
+Comparadores: __lt__, __gt__, __eq__: Permiten comparar fechas para determinar si una fecha es menor, mayor o igual a otra fecha.
