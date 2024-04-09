@@ -111,7 +111,7 @@ class Fecha:
                 anio += 1
         return Fecha(dia, mes, anio)
 
-    def __sub__(self, other) -> Fecha:
+    def __sub__(self, other) -> 'Fecha':
         '''Restar una fecha a otra fecha -> Número de días
         Restar un número de días a la fecha -> Nueva fecha'''
 
